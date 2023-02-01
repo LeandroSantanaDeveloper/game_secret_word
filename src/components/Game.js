@@ -1,7 +1,8 @@
-import './Game.css';
+import { useState, useRef } from "react";
 
+// styles
+import "./Game.css";
 
-import { useState, useRef } from 'react';
 const Game = ({
   verifyLetter,
   pickedCategory,
@@ -10,7 +11,7 @@ const Game = ({
   guessedLetters,
   wrongLetters,
   guesses,
-  score
+  score,
 }) => {
   const [letter, setLetter] = useState("");
   const letterInputRef = useRef(null);
@@ -24,15 +25,17 @@ const Game = ({
 
     letterInputRef.current.focus();
   };
+
   return (
-    <div className='game'>
-      <p className='points'></p>
-      <span>Puntuação: {score}</span>
-      <h1>Adivinhe a palavra:</h1>
+    <div className="game">
+      <p className="points">
+        <span>Pontuação</span>: {score}
+      </p>
+      <h1>Advinhe a palavra:</h1>
       <h3 className="tip">
         Dica sobre a palavra: <span>{pickedCategory}</span>
       </h3>
-      <p>Você ainda tem {guesses} tentativas(s)</p>
+      <p>Você ainda tem {guesses} tentativa(s).</p>
       <div className="wordContainer">
         {letters.map((letter, i) =>
           guessedLetters.includes(letter) ? (
@@ -44,26 +47,29 @@ const Game = ({
           )
         )}
       </div>
-      <div className='letterContainer'>
-        <p>Tente adivinhar uma letra da palavra:</p>
-        <form onSubmit={handleSubmit} >
-          <input type="text" name="letter" 
-          maxLength="1" 
-          required 
-          onChange={(e) => setLetter(e.target.value)} 
-          value={letter}
-          ref={letterInputRef} />
+      <div className="letterContainer">
+        <p>Tente adivnhar uma letra da palavra:</p>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="letter"
+            maxLength="1"
+            onChange={(e) => setLetter(e.target.value)}
+            required
+            value={letter}
+            ref={letterInputRef}
+          />
           <button>Jogar!</button>
         </form>
-
       </div>
-      <div className="wrongLettersContainer"></div>
-      <p>Letras já utilizadas:</p>
-      {wrongLetters.map((letter, i) => (
-        <span key={i}>{letter}, </span>
-      ))}
+      <div className="wrongLettersContainer">
+        <p>Letras já utilizadas:</p>
+        {wrongLetters.map((letter, i) => (
+          <span key={i}>{letter}, </span>
+        ))}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Game
+export default Game;
